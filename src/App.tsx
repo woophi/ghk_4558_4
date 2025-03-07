@@ -12,17 +12,12 @@ import { appSt } from './style.css';
 import { ThxLayout } from './thx/ThxLayout';
 import { sendDataToGA } from './utils/events';
 
-const items = [
-  'Готовые фразы со смайликами',
-  'Аудио, записанные вами',
-  'Видео, записанные вами',
-  'Видео с персонажами Альфа-Банка',
-  'Видео от известных людей',
-];
+const items0 = ['Готовые фразы со смайликами', 'Видео с персонажами Альфа-Банка'];
+const items = ['Аудио, записанные вами', 'Видео, записанные вами', 'Видео от известных людей'];
 
 const items2 = ['Баста', 'Wylsacom', 'Алла Михеева'];
 
-const obj = items.concat(items2).reduce<Record<string, boolean>>((acc, item) => {
+const obj = items.concat(items2, items0).reduce<Record<string, boolean>>((acc, item) => {
   acc[item] = false;
   return acc;
 }, {});
@@ -81,7 +76,28 @@ export const App = () => {
         </div>
 
         <Typography.TitleResponsive tag="h3" view="small" font="system" weight="semibold">
-          Виды сообщений
+          Бесплатно
+        </Typography.TitleResponsive>
+        <div className={appSt.boxswitchers}>
+          {items0.map(item => (
+            <Switch
+              key={item}
+              block
+              reversed
+              checked={checkedItems[item]}
+              label={item}
+              onChange={() =>
+                setCheckedItem({
+                  ...checkedItems,
+                  [item]: !checkedItems[item],
+                })
+              }
+              className={appSt.switchItem}
+            />
+          ))}
+        </div>
+        <Typography.TitleResponsive tag="h3" view="small" font="system" weight="semibold">
+          99 ₽ за одно сообщение
         </Typography.TitleResponsive>
         <div className={appSt.boxswitchers}>
           {items.map(item => (
